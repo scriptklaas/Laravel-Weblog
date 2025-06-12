@@ -1,0 +1,85 @@
+18-10:
+Nu bezig met comments, waarschijnlijk een nieuw model voor maken
+Comments zijn account gebonden en post gebonden, Username van de commenter met datum van comment
+In de toekomst moeten er ook afbeeldingen en categorieen bij de posts kunnen, waarschijnlijk ook nieuwe models voor nodig. iig nieuwe databases
+idd een nieuw model voor gemaakt, werkt!
+
+31-10:
+nu met login bezig
+-maak een login controller, geen usercontroller - doe dat in de postcontroller
+-logincontroller heeft alleen een authenticate functie, die redirect naar de post index met alle posts en comments van de user
+https://laravel.com/docs/11.x/authentication#authenticating-users
+https://laravel.com/docs/11.x/authentication#retrieving-the-authenticated-user
+
+1-11:
+inloggen is gelukt, probeer nu de posts van de user weer te geven als ie ingelogt is, zo niet laat dan alle posts zien
+lukt nog niet, if statement op de index view werkt nog niet
+
+8-11:
+^is gelukt, edit functie toegevoegd en werkt, delete functie ook bijna maar confirmation lukt nog niet. lijkt alsof de ingebouwde functie niet werkt
+https://laravel.com/docs/11.x/prompts#confirm
+nvm confirm prompt hoeft niet
+
+14-11
+Categorieen toevoegen
+-Model maken, geen factory want geen fillers nodig
+-Controller maken(?)
+-Create page
+-Filter op categorie
+-Categorieen aan posts toevoegen, drop down menu, multi-select
+
+Verbetering overzicht posts en eigen posts
+-Welcome pagina omzetten naar "index" voor guests, dus hier gewoon alle posts weergeven gesorteerd op datum, het liefst met alleen username en titel
+-Index alleen voor auth users
+
+Lang bezig geweest om de user niet meer als input te hoeven hebben, niet gelukt
+Categorie maken en weergeven wel
+Nu nog aan een post toevoegen en filteren op categorie
+
+
+21-11
+Lastig lastig lastig
+Krijg de category_post table niet geseed
+https://stackoverflow.com/questions/32540845/adding-relations-to-laravel-factory-model
+
+5-12
+category_post = geseed!
+category aan een nieuwe post toevoegen = gelukt!
+category aanpassen bij post editen = error, hulp bij nodig
+
+13-2-2025
+category aanpassen is gelukt (vorige week al), kleine syntax error
+filteren ook gelukt
+heb categories zijn eigen root gegeven
+nu afbeeldingen
+
+6-3
+kort dagje eerste stap gemaakt met afbeeldingen
+gebruik PostController en Storage
+
+7-3
+Model en migration gemaakt voor images
+een beetje gokwerk tot nu toe
+het lijkt me dat ik de path naar het bestand in de database moet hebben en ofc de id en post id
+
+27-3 
+afbeeldingen werken
+gebruik de post table, gewoon een "path" column toegevoegd
+nu premium content toevoegen
+een aparte pagina voor alle premium content
+een plek waar mensen kunnen "betalen" voor toegang tot de content
+bij het maken/aanpassen van een post de "paid" tag en die opslaan in de database
+kan gewoon in de post table lijkt me met een boolean voor paid of niet
+user table moet ook een column bij, voor paid en niet
+
+
+11-4
+posts paid maken lukt niet, tijdens edit bij creeeren wel
+
+30-5
+premium posts - check
+nu wat cleanup aan het doen, de user_id moet natuurlijk niet door de user zelf worden ingevoerd maar automatisch worden gedetecteerd
+
+12-6
+dingen die ik in het begin heb gedaan fixen;
+index fix - atm als je ingelogd bent krijg je alleen je eigen posts te zien
