@@ -40,9 +40,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $categories = Category::get();
-        return view('posts.create', compact('user', 'categories'));
+        if (Auth::check()) {
+            $user = Auth::user();
+            $categories = Category::get();
+            return view('posts.create', compact('user', 'categories'));
+        } else {
+            return redirect()->route('posts.login');
+        }
     }
 
     /**
@@ -50,10 +54,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        dd($request);
-        $user = Auth::user();
-        $request['user_id'] = $user['id'];
+        // dd($request);
         $validated = $request->validated();
+        
+        $validated['user_id'] = Auth::user()->id;
 
         if ($request->has('image')) {
         $imageName = time().'.'.$request->image->extension();
@@ -65,7 +69,10 @@ class PostController extends Controller
 
         if ($request->has('paid')) {
             $validated['paid'] = true;
+        } else {
+            $validated['paid'] = false;
         }
+        // dd($validated);
         $post = Post::create($validated);
         
         $post->categories()->sync($validated['category_id']);

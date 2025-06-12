@@ -23,8 +23,6 @@ class UpdateCommentRequest extends FormRequest
     {
         return [
             'body' => 'required',
-            'user_id' => 'required',
-            'post_id' => 'required',
         ];
     }
 }

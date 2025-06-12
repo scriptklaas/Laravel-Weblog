@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -29,14 +30,20 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request, Post $post)
     {
-        $post = $_POST["post_id"];
-        $validated = $request->validated();
+        if (Auth::check()) {
+            $validated = $request->validated();
+            $validated['post_id'] = $post['id'];
+            $validated['user_id'] = Auth::user()->id;
+            Comment::create($validated);
 
-        Comment::create($validated);
-
-        return redirect()->route('posts.show', $post);
+            return redirect()->route('posts.show', $post);
+        } else {
+            
+            return redirect()->route('posts.login');
+        }
+        
     }
 
     /**

@@ -22,9 +22,6 @@
         @endforeach
     </select>
     <br>
-    <label for="user_id">User id:</label>
-    <input type="number" id="user_id" name="user_id" value="{{$user->id}}" required>
-    <br>
     <button type="submit">Save</button>
     <h2>Add an image:</h2>
     <div>

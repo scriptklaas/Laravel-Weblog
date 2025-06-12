@@ -30,11 +30,5 @@
                 <br>
                 <button type="submit">Comment</button>
                 <br>
-                <br>
-                <label for="user_id">User id:</label>
-                <input type="number" id="user_id" name="user_id" value="{{$post->user_id}}" required>
-                <br>
-                <label for="post_id">Post id:</label>
-                <input type="number" id="post_id" name="post_id" value="{{$post->id}}" required>
         </form>
 @endsection
