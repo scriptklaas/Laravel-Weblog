@@ -7,6 +7,6 @@
         <li><a href="{{ route('posts.create') }}">Create post</a></li>
         <li><a href="{{ route('categories.index') }}">Categories</a></li>
         <li><a href="{{ route('premium.index') }}">View Premium Content</a></li>
-        <li><a href="{{ route('premium.purchase') }}">Purchase Premium Access</a></li>
+        <li><a href="{{ route('users.purchase') }}">Purchase Premium Access</a></li>
     </ul>
 </nav>

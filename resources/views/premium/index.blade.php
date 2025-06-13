@@ -18,7 +18,6 @@
             <tr>
                 <td><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></td>
                 <td>{{ $post->body }}</td>
-                <td>{{ $post->paid }}</td>
         @endforeach
 @endauth
 @endsection

@@ -84,3 +84,7 @@ nu wat cleanup aan het doen, de user_id moet natuurlijk niet door de user zelf w
 dingen die ik in het begin heb gedaan fixen;
 index fix - atm als je ingelogd bent krijg je alleen je eigen posts te zien
 user_id field bij posts en comments creeeren en editen in de controller doen ipv door de user laten invullen
+
+13-6
+index fixed - nieuwe controller functie toegevoegd, niet helemaal hoe het hoort denk ik maar het werkt
+user_id en post_id velden worden gedaan in de controller

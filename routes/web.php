@@ -7,7 +7,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', [PostController::class, 'index'])->name('welcome');
+Route::get('/', [PostController::class, 'welcome'])->name('welcome');
 
 Route::post('/', [PostController::class, 'index'])->name('welcome');
 
@@ -29,9 +29,7 @@ Route::get('/posts/{post}/show', [PostController::class, 'show'])->name('posts.s
 
 Route::get('/premium', [PostController::class, 'premium'])->name('premium.index');
 
-Route::get('/premium/purchase', function () {
-    return view('premium.purchase');
-})->name('premium.purchase');
+Route::get('/premium/purchase', [UserController::class, 'purchase'])->name('users.purchase');
 
 Route::post('/premium/purchase', [UserController::class, 'membership'])->name('users.membership');
 

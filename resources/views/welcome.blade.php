@@ -4,7 +4,6 @@
 
 @section('content')
 <h1>Laravel Weblog</h1>
-<h2><a href="{{ route('posts.login') }}">Login</a> to make posts of your own</h2>
 <h2>Filter by category:</h2>
 <label for="category_id">Categories:</label>
 <br>
@@ -17,7 +16,7 @@
     <br>
     <button type="submit">Filter</button>
 </form>
-<h2>Posts by other people:</h2>
+<h2>All posts:</h2>
 <table>
     <thead>
         <tr>

@@ -17,6 +17,15 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class PostController extends Controller
 {
+    
+    // Display homepage
+    public function welcome()
+    {
+        $categories = Category::get();
+        $posts = Post::where('paid', false)->orderBy('updated_at', 'desc')->get();
+        return view('welcome', compact('posts', 'categories'));
+    }
+    
     /**
      * Display a listing of the resource.
      */
@@ -41,9 +50,8 @@ class PostController extends Controller
     public function create()
     {
         if (Auth::check()) {
-            $user = Auth::user();
             $categories = Category::get();
-            return view('posts.create', compact('user', 'categories'));
+            return view('posts.create', compact('categories'));
         } else {
             return redirect()->route('posts.login');
         }
@@ -96,9 +104,12 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        $user = Auth::user();
-        $categories = Category::get();
-        return view('posts.edit', compact('post', 'categories', 'user'));
+        if (Auth::user()->id !== $post['user_id']) {
+            return redirect()->route('posts.index');
+        } else {
+            $categories = Category::get();
+            return view('posts.edit', compact('post', 'categories'));
+        }
     }
 
     /**
@@ -137,17 +148,18 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
+    // Display premium posts
     public function premium() 
     {
-        if (Auth::user()['paid']) {
-            $posts = Post::where('paid', true)->orderBy('updated_at', 'desc')->get();
-            return view('premium.index', compact('posts'));
+        if (Auth::check()) {
+            if (Auth::user()['paid']) {
+                $posts = Post::where('paid', true)->orderBy('updated_at', 'desc')->get();
+                return view('premium.index', compact('posts'));
+            } else {
+                return redirect()->route('users.purchase');
+            }
         } else {
-            $user = Auth::user();
-            $comments = Comment::where('user_id', $user->id)->get();
-            $posts = Post::where('user_id', $user->id)->orderBy('updated_at', 'desc')->get();
-            $categories = Category::get();
-            return view('posts.index', compact('posts', 'comments', 'user', 'categories'));
+            return redirect()->route('posts.login');
         }
     }
 }

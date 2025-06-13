@@ -10,5 +10,4 @@
 <button>Subscribe</button>
 </form>
 @endauth
-<p>If there's nothing here please login</p>
 @endsection

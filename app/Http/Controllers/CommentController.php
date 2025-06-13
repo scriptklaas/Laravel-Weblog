@@ -37,10 +37,8 @@ class CommentController extends Controller
             $validated['post_id'] = $post['id'];
             $validated['user_id'] = Auth::user()->id;
             Comment::create($validated);
-
             return redirect()->route('posts.show', $post);
         } else {
-            
             return redirect()->route('posts.login');
         }
         
