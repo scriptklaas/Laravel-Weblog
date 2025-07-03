@@ -14,7 +14,9 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $user = User::where('id', Auth::id())->update(['paid' => true]);
+            
             $posts = Post::where('paid', true)->get();
+            
             return view('premium.index', compact('posts'));
         } else {
             return redirect()->route('posts.login');

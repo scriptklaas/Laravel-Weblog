@@ -33,15 +33,21 @@ class PostController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
+            
             $comments = Comment::where('user_id', $user->id)->get();
+            
             $posts = Post::where('user_id', $user->id)->orderBy('updated_at', 'desc')->get();
+            
             $categories = Category::get();
+
             return view('posts.index', compact('posts', 'comments', 'user', 'categories'));
-        } else {
-            $categories = Category::get();
-            $posts = Post::where('paid', false)->orderBy('updated_at', 'desc')->get();
-            return view('welcome', compact('posts', 'categories'));
-        }
+        } 
+        
+        $categories = Category::get();
+        
+        $posts = Post::where('paid', false)->orderBy('updated_at', 'desc')->get();
+        
+        return view('welcome', compact('posts', 'categories'));        
     }
 
     /**
@@ -68,11 +74,11 @@ class PostController extends Controller
         $validated['user_id'] = Auth::user()->id;
 
         if ($request->has('image')) {
-        $imageName = time().'.'.$request->image->extension();
-        
-        $request->image->move(public_path('storage/images'), $imageName);
-        
-        $validated['image'] = 'storage/images/'.$imageName;
+            $imageName = time().'.'.$request->image->extension();
+            
+            $request->image->move(public_path('storage/images'), $imageName);
+            
+            $validated['image'] = 'storage/images/'.$imageName;
         }
 
         if ($request->has('paid')) {
@@ -80,7 +86,7 @@ class PostController extends Controller
         } else {
             $validated['paid'] = false;
         }
-        // dd($validated);
+
         $post = Post::create($validated);
         
         $post->categories()->sync($validated['category_id']);
@@ -94,8 +100,11 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $category_post = DB::table('category_post')->where('post_id', $post->id)->pluck('category_id');
+
         $category = Category::whereIn('id', $category_post)->pluck('name');
+        
         $comment = Comment::where('post_id', $post->id)->pluck('body');
+        
         return view('posts.show', compact('post', 'comment', 'category'));
     }
 

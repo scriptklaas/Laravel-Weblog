@@ -26,11 +26,12 @@ class CategoryController extends Controller
         return view('categories.index' , compact('category'));
     }
 
-    public function show() {
-        $category_id = $_GET['category_id'];
-        $category = Category::where('id', $category_id)->pluck('name')->first();
-        $category_post = DB::table('category_post')->where('category_id', $category_id)->pluck('post_id');
-        $post = Post::whereIn('id', $category_post)->get();
+    public function show(Request $request) {
+        
+        $category = Category::where('id', $request->category_id)->with('posts')->first();
+
+        $post = $category->posts;
+
         return view('categories.show', compact('post', 'category'));
     }
 }
